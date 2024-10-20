@@ -9,7 +9,6 @@ import (
 	"net/http"
 	"net/http/cookiejar"
 	"net/url"
-	"strings"
 
 	"github.com/davecgh/go-spew/spew"
 	"github.com/facebookincubator/go-belt/tool/logger"
@@ -18,15 +17,9 @@ import (
 
 type Kick struct {
 	*http.Client
-	BaseURL *url.URL
 }
 
 func New() (*Kick, error) {
-	const baseURLString = "https://kick.com"
-	baseURL, err := url.Parse(baseURLString)
-	if err != nil {
-		return nil, fmt.Errorf("unable to parse URL '%s': %w", baseURLString, err)
-	}
 
 	cj, err := cookiejar.New(nil)
 	if err != nil {
@@ -43,7 +36,6 @@ func New() (*Kick, error) {
 			Transport: rt,
 			Jar:       cj,
 		},
-		BaseURL: baseURL,
 	}, nil
 }
 
@@ -55,20 +47,17 @@ func Request[REPLY any, REQUEST any](
 	ctx context.Context,
 	k *Kick,
 	httpMethod string,
-	path string,
+	route Route,
+	routeVars RouteVars,
 	uriValues url.Values,
 	request REQUEST,
 ) (_ret *REPLY, _err error) {
-	logger.Debugf(ctx, "Request: %s %s: %#+v", httpMethod, path, request)
+	logger.Debugf(ctx, "Request: %s %s: %#+v, %#+v", httpMethod, route, uriValues, request)
 	defer func() {
 		logger.Debugf(ctx, "Reply: %#+v %v", _ret, _err)
 	}()
 
-	dstURL := ptr(*k.BaseURL)
-	if !strings.HasSuffix(dstURL.Path, "/") {
-		dstURL.Path += "/"
-	}
-	dstURL.Path += path
+	dstURL := GetURL(route, routeVars)
 	dstURL.RawQuery = uriValues.Encode()
 
 	req := &http.Request{

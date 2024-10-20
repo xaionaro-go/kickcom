@@ -18,7 +18,7 @@ func (k *Kick) Login(
 		return fmt.Errorf("unable to get a token: %w", err)
 	}
 
-	k.mobileLogin(ctx)
+	//k.mobileLogin(ctx)
 
 	_ = token
 	panic("not implemented")
@@ -33,7 +33,7 @@ type KickTokenProviderReply struct {
 }
 
 func (k *Kick) getToken(ctx context.Context) (*KickTokenProviderReply, error) {
-	return Request[KickTokenProviderReply](ctx, k, http.MethodGet, "kick-token-provider", nil, NoBody)
+	return Request[KickTokenProviderReply](ctx, k, http.MethodGet, RouteKickTokenCreate, nil, nil, NoBody)
 }
 
 type MobileLoginRequest struct {
@@ -49,6 +49,6 @@ type MobileLoginReply struct {
 	TwoFARequired bool `json:"2fa_required"`
 }
 
-func (k *Kick) mobileLogin(ctx context.Context) (*MobileLoginReply, error) {
+/*func (k *Kick) mobileLogin(ctx context.Context) (*MobileLoginReply, error) {
 	return Request[MobileLoginReply](ctx, k, http.MethodPost, "mobile/login", nil, NoBody)
-}
+}*/

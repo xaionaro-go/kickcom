@@ -2,7 +2,6 @@ package kickcom
 
 import (
 	"context"
-	"fmt"
 	"net/http"
 	"time"
 )
@@ -15,7 +14,8 @@ func (k *Kick) GetChannelV1(
 		ctx,
 		k,
 		http.MethodGet,
-		fmt.Sprintf("api/v1/channels/%s", channel),
+		RouteChannelsShow,
+		RouteVars{"channel": channel},
 		nil,
 		NoBody,
 	)

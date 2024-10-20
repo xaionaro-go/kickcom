@@ -52,7 +52,8 @@ func (k *Kick) GetChatMessagesV2(
 		ctx,
 		k,
 		http.MethodGet,
-		fmt.Sprintf("api/v2/channels/%d/messages", channelID),
+		RouteChatHistoryChannelMessages,
+		RouteVars{"channelId": channelID},
 		uriValues,
 		NoBody,
 	)
@@ -84,7 +85,11 @@ func (k *Kick) DeleteChatMessage(
 		ctx,
 		k,
 		http.MethodPost,
-		fmt.Sprintf("api/v2/chatrooms/%d/messages/%d", chatRoomID, messageID),
+		RouteDeleteChatMessage,
+		RouteVars{
+			"chatroomId": chatRoomID,
+			"messageId":  messageID,
+		},
 		nil,
 		NoBody,
 	)

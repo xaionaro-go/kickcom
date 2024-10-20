@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
+	"time"
 
 	"github.com/davecgh/go-spew/spew"
 	"github.com/facebookincubator/go-belt"
@@ -38,11 +40,28 @@ func main() {
 	channel, err := k.GetChannelV1(ctx, channelSlug)
 	assertNoError(err)
 
-	msgs, err := k.GetChatMessagesV2(ctx, channel.ID, 0)
-	assertNoError(err)
+	currentCursor := uint64(0)
 
-	for _, msg := range msgs.Data.Messages {
-		spew.Dump(msg)
+	t := time.NewTicker(time.Second)
+	defer t.Stop()
+	for ; ; <-t.C {
+		reply, err := k.GetChatMessagesV2(ctx, channel.ID, currentCursor)
+		assertNoError(err)
+
+		if reply.Status.Code != 200 {
+			if reply.Status.Message == "No messages found" {
+				continue
+			}
+		}
+
+		newCursor, err := strconv.ParseUint(reply.Data.Cursor, 10, 64)
+		assertNoError(err)
+
+		currentCursor = newCursor
+
+		for _, msg := range reply.Data.Messages {
+			spew.Dump(msg)
+		}
 	}
 }
 

@@ -2,7 +2,6 @@ package kickcom
 
 import (
 	"context"
-	"fmt"
 	"net/http"
 )
 
@@ -14,7 +13,8 @@ func (k *Kick) GetChatroomRulesV2(
 		ctx,
 		k,
 		http.MethodGet,
-		fmt.Sprintf("/api/v2/channels/%s/chatroom/rules", channelSlug),
+		RouteChatRoomGetRules,
+		RouteVars{"channel": channelSlug},
 		nil,
 		NoBody,
 	)
