@@ -10,4 +10,5 @@ const (
 	RouteChatRoomShow               = Route("chatroom.show")
 	RouteChannelChatRoom            = Route("channel.chatroom")
 	RouteKickTokenCreate            = Route("kick.token.create")
+	RouteSwaggerGetDocs             = Route("swagger.getDocs")
 )
