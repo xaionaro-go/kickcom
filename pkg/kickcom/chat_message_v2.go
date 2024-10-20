@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"net/url"
 	"time"
 )
 
@@ -41,12 +42,18 @@ type ChatMessagesV2Reply struct {
 func (k *Kick) GetChatMessagesV2(
 	ctx context.Context,
 	channelID uint64,
+	cursor uint64,
 ) (*ChatMessagesV2Reply, error) {
+	uriValues := url.Values{}
+	if cursor != 0 {
+		uriValues.Set("cursor", fmt.Sprintf("%d", cursor))
+	}
 	return Request[ChatMessagesV2Reply](
 		ctx,
 		k,
 		http.MethodGet,
 		fmt.Sprintf("api/v2/channels/%d/messages", channelID),
+		uriValues,
 		NoBody,
 	)
 }
@@ -78,6 +85,7 @@ func (k *Kick) DeleteChatMessage(
 		k,
 		http.MethodPost,
 		fmt.Sprintf("api/v2/chatrooms/%d/messages/%d", chatRoomID, messageID),
+		nil,
 		NoBody,
 	)
 }

@@ -33,7 +33,7 @@ type KickTokenProviderReply struct {
 }
 
 func (k *Kick) getToken(ctx context.Context) (*KickTokenProviderReply, error) {
-	return Request[KickTokenProviderReply](ctx, k, http.MethodGet, "kick-token-provider", struct{}{})
+	return Request[KickTokenProviderReply](ctx, k, http.MethodGet, "kick-token-provider", nil, NoBody)
 }
 
 type MobileLoginRequest struct {
@@ -50,5 +50,5 @@ type MobileLoginReply struct {
 }
 
 func (k *Kick) mobileLogin(ctx context.Context) (*MobileLoginReply, error) {
-	return Request[MobileLoginReply](ctx, k, http.MethodPost, "mobile/login", struct{}{})
+	return Request[MobileLoginReply](ctx, k, http.MethodPost, "mobile/login", nil, NoBody)
 }

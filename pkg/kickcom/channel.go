@@ -16,6 +16,7 @@ func (k *Kick) GetChannelV1(
 		k,
 		http.MethodGet,
 		fmt.Sprintf("api/v1/channels/%s", channel),
+		nil,
 		NoBody,
 	)
 }

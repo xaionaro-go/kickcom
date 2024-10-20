@@ -38,7 +38,7 @@ func main() {
 	channel, err := k.GetChannelV1(ctx, channelSlug)
 	assertNoError(err)
 
-	msgs, err := k.GetChatMessagesV2(ctx, channel.ID)
+	msgs, err := k.GetChatMessagesV2(ctx, channel.ID, 0)
 	assertNoError(err)
 
 	for _, msg := range msgs.Data.Messages {

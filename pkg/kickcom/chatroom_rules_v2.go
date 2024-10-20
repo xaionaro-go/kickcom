@@ -15,6 +15,7 @@ func (k *Kick) GetChatroomRulesV2(
 		k,
 		http.MethodGet,
 		fmt.Sprintf("/api/v2/channels/%s/chatroom/rules", channelSlug),
+		nil,
 		NoBody,
 	)
 }

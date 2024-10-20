@@ -56,6 +56,7 @@ func Request[REPLY any, REQUEST any](
 	k *Kick,
 	httpMethod string,
 	path string,
+	uriValues url.Values,
 	request REQUEST,
 ) (_ret *REPLY, _err error) {
 	logger.Debugf(ctx, "Request: %s %s: %#+v", httpMethod, path, request)
@@ -68,6 +69,7 @@ func Request[REPLY any, REQUEST any](
 		dstURL.Path += "/"
 	}
 	dstURL.Path += path
+	dstURL.RawQuery = uriValues.Encode()
 
 	req := &http.Request{
 		URL:    dstURL,
@@ -98,6 +100,10 @@ func Request[REPLY any, REQUEST any](
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, fmt.Errorf("unable to read the response body: %w", err)
+	}
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("the received status code is not 200: %d; body: '%s'", resp.StatusCode, body)
 	}
 
 	var result REPLY

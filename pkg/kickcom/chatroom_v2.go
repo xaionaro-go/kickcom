@@ -15,6 +15,7 @@ func (k *Kick) GetChatroomV2(
 		k,
 		http.MethodGet,
 		fmt.Sprintf("/api/v2/channels/%s/chatroom", channelSlug),
+		nil,
 		NoBody,
 	)
 }
