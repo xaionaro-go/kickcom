@@ -13,7 +13,7 @@ import (
 	"github.com/facebookincubator/go-belt/tool/logger"
 	xlogrus "github.com/facebookincubator/go-belt/tool/logger/implementation/logrus"
 	"github.com/spf13/pflag"
-	"github.com/xaionaro-go/kickcom/pkg/kickcom"
+	"github.com/xaionaro-go/kickcom"
 )
 
 func main() {
@@ -54,14 +54,16 @@ func main() {
 			}
 		}
 
+		for _, msg := range reply.Data.Messages {
+			spew.Dump(msg)
+		}
+
+		break // the cursor mechanism does not work, so let's stop here :(
+
 		newCursor, err := strconv.ParseUint(reply.Data.Cursor, 10, 64)
 		assertNoError(err)
 
 		currentCursor = newCursor
-
-		for _, msg := range reply.Data.Messages {
-			spew.Dump(msg)
-		}
 	}
 }
 

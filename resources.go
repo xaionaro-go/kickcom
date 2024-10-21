@@ -11,7 +11,7 @@ import (
 //go:embed resources/endpoints.json
 var endpointsBytes []byte
 
-type RouteInfo struct {
+type routeInfo struct {
 	URI      string            `json:"uri"`
 	Methods  []string          `json:"methods"`
 	Bindings map[string]string `json:"bindings"`
@@ -21,7 +21,7 @@ type endpointsT struct {
 	BaseURL  string   `json:"url"`
 	Port     *uint16  `json:"port"`
 	Defaults struct{} `json:"defaults"`
-	Routes   map[Route]RouteInfo
+	Routes   map[Route]routeInfo
 }
 
 var endpoints endpointsT
@@ -43,8 +43,10 @@ func init() {
 	}
 }
 
+// RouteVars are the substitutions in an URI defined in ./resources/endpoints.json.
 type RouteVars map[string]any
 
+// GetURL returns an URL of the requested endpoint.
 func GetURL(
 	route Route,
 	routeVars RouteVars,

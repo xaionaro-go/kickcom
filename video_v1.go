@@ -2,7 +2,8 @@ package kickcom
 
 import "time"
 
-type Video struct {
+// VideoV1 is a representation of a VOD in API v1.
+type VideoV1 struct {
 	ID                uint64    `json:"id"`
 	LiveStreamID      uint64    `json:"live_stream_id"`
 	Slug              any       `json:"slug"`

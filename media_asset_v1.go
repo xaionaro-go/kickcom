@@ -2,7 +2,8 @@ package kickcom
 
 import "time"
 
-type MediaAsset struct {
+// MediaAssetV1 is a representation of a media asset in API v1.
+type MediaAssetV1 struct {
 	ID               uint64 `json:"id"`
 	ModelType        string `json:"model_type"`
 	ModelID          uint64 `json:"model_id"`

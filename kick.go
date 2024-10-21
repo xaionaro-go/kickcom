@@ -12,15 +12,16 @@ import (
 
 	"github.com/davecgh/go-spew/spew"
 	"github.com/facebookincubator/go-belt/tool/logger"
-	"github.com/xaionaro-go/kickcom/pkg/cloudflarebypass"
+	"github.com/xaionaro-go/kickcom/cloudflarebypass"
 )
 
+// Kick is a client to Kick.com API.
 type Kick struct {
 	*http.Client
 }
 
+// New returns a new instance of Kick.
 func New() (*Kick, error) {
-
 	cj, err := cookiejar.New(nil)
 	if err != nil {
 		return nil, fmt.Errorf("unable to initialize a cookie jar: %w", err)
@@ -41,8 +42,11 @@ func New() (*Kick, error) {
 
 type noBodyT struct{}
 
+// NoBody is a request that could be used in function `Request` to signify
+// that there is no request body.
 var NoBody noBodyT
 
+// Request performs a request to Kick's backend.
 func Request[REPLY any, REQUEST any](
 	ctx context.Context,
 	k *Kick,

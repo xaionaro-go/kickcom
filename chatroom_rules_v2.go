@@ -5,6 +5,8 @@ import (
 	"net/http"
 )
 
+// GetChatroomRulesV2 returns the rules of the chat.
+// The function is not tested.
 func (k *Kick) GetChatroomRulesV2(
 	ctx context.Context,
 	channelSlug string,
@@ -20,6 +22,7 @@ func (k *Kick) GetChatroomRulesV2(
 	)
 }
 
+// ChatroomRulesV2 is a response to GetChatroomRulesV2.
 type ChatroomRulesV2 struct {
 	Status struct {
 		Error   bool   `json:"error"`

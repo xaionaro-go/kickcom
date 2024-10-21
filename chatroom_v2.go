@@ -5,6 +5,9 @@ import (
 	"net/http"
 )
 
+// GetChatroomV2 returns the information about the chat room using API v2.
+// For more details see the fields of ChatroomV2.
+// The function is not tested.
 func (k *Kick) GetChatroomV2(
 	ctx context.Context,
 	channelSlug string,
@@ -20,6 +23,8 @@ func (k *Kick) GetChatroomV2(
 	)
 }
 
+// ChatroomV2 contains the information about the chat room as
+// it is provided by API v2.
 type ChatroomV2 struct {
 	ID       int `json:"id"`
 	SlowMode struct {

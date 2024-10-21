@@ -6,7 +6,9 @@ import (
 	"net/http"
 )
 
-func (k *Kick) Login(
+// TBDLogin is a To-Be-Developed (TBD) function that will do the logging in (when will be complete).
+// DO NOT USE THIS FUNCTION.
+func (k *Kick) TBDLogin(
 	ctx context.Context,
 	email string,
 	password string,
@@ -24,6 +26,7 @@ func (k *Kick) Login(
 	panic("not implemented")
 }
 
+// KickTokenProviderReply is a reply to a token request.
 type KickTokenProviderReply struct {
 	Enabled                   bool   `json:"enabled"`
 	NameFieldName             string `json:"nameFieldName"`
@@ -36,6 +39,7 @@ func (k *Kick) getToken(ctx context.Context) (*KickTokenProviderReply, error) {
 	return Request[KickTokenProviderReply](ctx, k, http.MethodGet, RouteKickTokenCreate, nil, nil, NoBody)
 }
 
+// MobileLoginRequest is a request for mobile logging in.
 type MobileLoginRequest struct {
 	Email              string `json:"email"`
 	Password           string `json:"password"`
@@ -45,6 +49,7 @@ type MobileLoginRequest struct {
 	IsMobileRequest    bool   `json:"isMobileRequest"`
 }
 
+// MobileLoginReply is a reply to mobile logging in request.
 type MobileLoginReply struct {
 	TwoFARequired bool `json:"2fa_required"`
 }

@@ -2,7 +2,8 @@ package kickcom
 
 import "time"
 
-type User struct {
+// UserV1 is a representation of an user in API v1.
+type UserV1 struct {
 	ID              uint64    `json:"id"`
 	Username        string    `json:"username"`
 	AgreedToTerms   bool      `json:"agreed_to_terms"`

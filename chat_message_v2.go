@@ -8,13 +8,16 @@ import (
 	"time"
 )
 
+// ChatMessageSenderV2 is a representation of the sender of a chat
+// message in API v2.
 type ChatMessageSenderV2 struct {
-	ID       int      `json:"id"`
-	Slug     string   `json:"slug"`
-	Username string   `json:"username"`
-	Identity Identity `json:"identity"`
+	ID       int        `json:"id"`
+	Slug     string     `json:"slug"`
+	Username string     `json:"username"`
+	Identity IdentityV2 `json:"identity"`
 }
 
+// ChatMessageSenderV2 is a representation of a chat message in API v2.
 type ChatMessageV2 struct {
 	ID        string              `json:"id"`
 	ChatID    int                 `json:"chat_id"`
@@ -26,6 +29,8 @@ type ChatMessageV2 struct {
 	Sender    ChatMessageSenderV2 `json:"sender"`
 }
 
+// ChatMessageSenderV2 is response in API v2 on a request to provide
+// chat messages.
 type ChatMessagesV2Reply struct {
 	Status struct {
 		Error   bool   `json:"error"`
@@ -39,6 +44,7 @@ type ChatMessagesV2Reply struct {
 	} `json:"data"`
 }
 
+// GetChatMessagesV2 requests a list of messages from the channel using API v2.
 func (k *Kick) GetChatMessagesV2(
 	ctx context.Context,
 	channelID uint64,
@@ -60,7 +66,7 @@ func (k *Kick) GetChatMessagesV2(
 }
 
 /*
-func (k *Kick) SendChatMessageV2(
+func (k *Kick) TBD_SendChatMessageV2(
 	ctx context.Context,
 ) {
 	return Request[SendChatMessageReply](
@@ -74,9 +80,13 @@ func (k *Kick) SendChatMessageV2(
 }
 */
 
+// DeleteChatMessageReply is a response to a request to delete a chat
+// message.
 type DeleteChatMessageReply struct{}
 
-func (k *Kick) DeleteChatMessage(
+// TBDDeleteChatMessage is a To-Be-Developed (TBD) function to delete
+// a chat message. DO NOT USE THIS FUNCTION.
+func (k *Kick) TBDDeleteChatMessage(
 	ctx context.Context,
 	chatRoomID uint64,
 	messageID uint64,

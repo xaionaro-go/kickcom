@@ -1,6 +1,7 @@
 package kickcom
 
-type Livestream struct {
+// LivestreamV1 is a representation of a live stream in API v1.
+type LivestreamV1 struct {
 	ID            uint64 `json:"id"`
 	Slug          string `json:"slug"`
 	ChannelID     uint64 `json:"channel_id"`
@@ -19,8 +20,8 @@ type Livestream struct {
 		Src    string `json:"src"`
 		Srcset string `json:"srcset"`
 	} `json:"thumbnail"`
-	Views      uint64     `json:"views"`
-	Tags       []any      `json:"tags"`
-	Categories []Category `json:"categories"`
-	Video      Video      `json:"video"`
+	Views      uint64       `json:"views"`
+	Tags       []any        `json:"tags"`
+	Categories []CategoryV1 `json:"categories"`
+	Video      VideoV1      `json:"video"`
 }

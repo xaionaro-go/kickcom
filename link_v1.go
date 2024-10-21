@@ -2,7 +2,8 @@ package kickcom
 
 import "time"
 
-type Link struct {
+// LinkV1 is a representation of a link in API v1.
+type LinkV1 struct {
 	ID          uint64    `json:"id"`
 	ChannelID   uint64    `json:"channel_id"`
 	Description string    `json:"description"`

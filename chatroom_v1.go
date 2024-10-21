@@ -6,6 +6,9 @@ import (
 	"time"
 )
 
+// GetChatroomV1 returns the information about the chat root using API v1.
+// For more details see the fields of ChatroomV1.
+// The function is not tested.
 func (k *Kick) GetChatroomV1(
 	ctx context.Context,
 	channelSlug string,
@@ -21,6 +24,7 @@ func (k *Kick) GetChatroomV1(
 	)
 }
 
+// ChatroomV1Short is a representation of the chat room essentials in API v1.
 type ChatroomV1Short struct {
 	ID                   uint64    `json:"id"`
 	ChatableType         string    `json:"chatable_type"`
@@ -38,6 +42,7 @@ type ChatroomV1Short struct {
 	FollowingMinDuration uint64    `json:"following_min_duration"`
 }
 
+// ChatroomV1 is the full representation of a chat room in API v1.
 type ChatroomV1 struct {
 	ID                  int             `json:"id"`
 	UserID              int             `json:"user_id"`
@@ -52,5 +57,5 @@ type ChatroomV1 struct {
 	MutedUsers          []any           `json:"muted_users"`
 	CanHost             bool            `json:"can_host"`
 	Chatroom            ChatroomV1Short `json:"chatroom"`
-	Emotes              []Emote         `json:"emotes"`
+	Emotes              []EmoteV1       `json:"emotes"`
 }
