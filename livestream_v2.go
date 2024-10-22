@@ -24,7 +24,7 @@ func (k *Kick) GetLivestreamV2(
 
 // LivestreamV2Reply is the response provided by GetLivestreamV2
 type LivestreamV2Reply struct {
-	Data LivestreamV2 `json:"data"`
+	Data *LivestreamV2 `json:"data"`
 }
 
 // LivestreamV2 represents a live stream in API v2.
