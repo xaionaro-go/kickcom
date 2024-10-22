@@ -4,8 +4,11 @@ package kickcom
 type Route string
 
 const (
-	// RouteChannelsShow is a route to the endpoint to get channel info.
+	// RouteChannelsShow is a route to the endpoint to get channel info using API v1.
 	RouteChannelsShow = Route("channels.show")
+
+	// RouteChannelLivestream is a route to the endpoint to get channel livestream info using API v2.
+	RouteChannelLivestream = Route("channel.livestream")
 
 	// RouteChatHistoryChannelMessages is a route to the endpoint to get channel messages history.
 	RouteChatHistoryChannelMessages = Route("chat-history.channel-messages")
@@ -13,7 +16,7 @@ const (
 	// RouteDeleteChatMessage is a route to the endpoint to delete a chat message.
 	RouteDeleteChatMessage = Route("delete.chatmessage")
 
-	// RouteChatRoomGetRules is a route to the endpoint to get chat room rules.
+	// RouteChatRoomGetRules is a route to the endpoint to get chat room rules using API v2.
 	RouteChatRoomGetRules = Route("chatroom.getRules")
 
 	// RouteChatRoomShow is a route to the endpoint to get chat room info using API v1.

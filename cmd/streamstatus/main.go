@@ -35,12 +35,12 @@ func main() {
 	k, err := kickcom.New()
 	assertNoError(err)
 
-	chanInfo, err := k.GetChannelV1(ctx, channelSlug)
+	streamInfo, err := k.GetLivestreamV2(ctx, channelSlug)
 	assertNoError(err)
 
 	enc := json.NewEncoder(os.Stdout)
 	enc.SetIndent("", " ")
-	err = enc.Encode(chanInfo)
+	err = enc.Encode(streamInfo)
 	assertNoError(err)
 }
 
