@@ -52,6 +52,8 @@ func (k *Kick) GetChatMessagesV2(
 ) (*ChatMessagesV2Reply, error) {
 	uriValues := url.Values{}
 	if cursor != 0 {
+		// this does not work for an unknown reason:
+		// if you set a correct value of a cursor, you just always get an empty response.
 		uriValues.Set("cursor", fmt.Sprintf("%d", cursor))
 	}
 	return Request[ChatMessagesV2Reply](

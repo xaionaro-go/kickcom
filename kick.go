@@ -94,6 +94,7 @@ func Request[REPLY any, REQUEST any](
 	if err != nil {
 		return nil, fmt.Errorf("unable to read the response body: %w", err)
 	}
+	logger.Tracef(ctx, "response body: <%s>", body)
 
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("the received status code is not 200: %d; body: '%s'", resp.StatusCode, body)
