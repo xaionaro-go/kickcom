@@ -1,6 +1,8 @@
-# DEPRECATED
+# To be deprecated
 
-Kick.com finally published [the API documentation](https://github.com/KickEngineering/KickDevDocs/), and this reverse-engineering project is no longer relevant. Instead just use normally implemented packages, based on the provided documentation, e.g.:
+Kick.com finally published [the API documentation](https://github.com/KickEngineering/KickDevDocs/). After the required features will be implemented (&published) this package will be deprecated/archived.
+
+Here are some examples of packages that are implemented based on the offical documentation:
 * https://github.com/Scorfly/gokick
 * https://github.com/glichtv/kick-sdk
 
