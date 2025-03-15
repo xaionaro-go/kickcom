@@ -1,3 +1,9 @@
+# DEPRECATED
+
+Kick.com finally published [the API documentation](https://github.com/KickEngineering/KickDevDocs/), and this reverse-engineering project is no longer relevant. Instead just use normally implemented packages, based on the provided documentation, e.g.:
+* https://github.com/Scorfly/gokick
+* https://github.com/glichtv/kick-sdk
+
 # About
 
 [![Go Reference](https://godoc.org/github.com/xaionaro-go/kickcom?status.svg)](https://godoc.org/github.com/xaionaro-go/kickcom)
