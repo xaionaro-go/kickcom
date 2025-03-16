@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strings"
 
 	"github.com/Danny-Dasilva/CycleTLS/cycletls"
 	"github.com/RomainMichau/cloudscraper_go/cloudscraper"
@@ -50,16 +51,22 @@ func (r *RoundTripper) RoundTrip(
 	}
 
 	var resp cycletls.Response
-	switch req.Method {
-	case http.MethodGet:
-		resp, err = r.CloudScrapper.Get(req.URL.String(), headerMap, string(body))
-	case http.MethodPost:
-		resp, err = r.CloudScrapper.Post(req.URL.String(), headerMap, string(body))
-	default:
-		resp, err = r.CloudScrapper.Do(req.URL.String(), cycletls.Options{}, req.Method)
-	}
-	if err != nil {
-		return nil, fmt.Errorf("unable to query: %w", err)
+	for i := 0; i < 10; i++ {
+		switch req.Method {
+		case http.MethodGet:
+			resp, err = r.CloudScrapper.Get(req.URL.String(), headerMap, string(body))
+		case http.MethodPost:
+			resp, err = r.CloudScrapper.Post(req.URL.String(), headerMap, string(body))
+		default:
+			resp, err = r.CloudScrapper.Do(req.URL.String(), cycletls.Options{}, req.Method)
+		}
+		if err != nil {
+			return nil, fmt.Errorf("unable to query: %w", err)
+		}
+		if resp.Status == 403 && strings.Contains(resp.Body, "<title>Just a moment...</title>") {
+			continue
+		}
+		break
 	}
 
 	respHeader := http.Header{}

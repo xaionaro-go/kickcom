@@ -4,6 +4,9 @@ package kickcom
 type Route string
 
 const (
+	// RouteSubcategoriesAll is a route to the endpoint to get all subcategories using API v1.
+	RouteSubcategoriesAll = Route("subcategories.all")
+
 	// RouteChannelsShow is a route to the endpoint to get channel info using API v1.
 	RouteChannelsShow = Route("channels.show")
 
