@@ -11,6 +11,13 @@ require (
 )
 
 require (
+	github.com/huandu/go-tls v0.0.0-20200109070953-6f75fb441850 // indirect
+	github.com/phuslu/goid v1.0.1 // indirect
+	github.com/xaionaro-go/gorex v0.0.0-20241010205749-bcd59d639c4d // indirect
+	github.com/xaionaro-go/spinlock v0.0.0-20200518175509-30e6d1ce68a1 // indirect
+)
+
+require (
 	github.com/Danny-Dasilva/fhttp v0.0.0-20240217042913-eeeb0b347ce1 // indirect
 	github.com/andybalholm/brotli v1.1.0 // indirect
 	github.com/cloudflare/circl v1.3.7 // indirect
@@ -24,8 +31,9 @@ require (
 	github.com/quic-go/quic-go v0.41.0 // indirect
 	github.com/refraction-networking/utls v1.6.2 // indirect
 	github.com/sirupsen/logrus v1.9.3 // indirect
+	github.com/xaionaro-go/xsync v0.0.0-20250713122735-6e002588c3d0
 	golang.org/x/crypto v0.19.0 // indirect
-	golang.org/x/exp v0.0.0-20230519143937-03e91628a987 // indirect
+	golang.org/x/exp v0.0.0-20230626212559-97b1e661b5df // indirect
 	golang.org/x/net v0.21.0 // indirect
 	golang.org/x/sys v0.28.0 // indirect
 	golang.org/x/text v0.21.0 // indirect

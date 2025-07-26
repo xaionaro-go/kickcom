@@ -13,11 +13,13 @@ import (
 	"github.com/davecgh/go-spew/spew"
 	"github.com/facebookincubator/go-belt/tool/logger"
 	"github.com/xaionaro-go/kickcom/cloudflarebypass"
+	"github.com/xaionaro-go/xsync"
 )
 
 // Kick is a client to Kick.com API.
 type Kick struct {
-	*http.Client
+	Client *http.Client
+	Mutex  xsync.Mutex
 }
 
 // New returns a new instance of Kick.
@@ -54,13 +56,26 @@ func Request[REPLY any, REQUEST any](
 	route Route,
 	routeVars RouteVars,
 	uriValues url.Values,
-	request REQUEST,
+	req REQUEST,
 ) (_ret *REPLY, _err error) {
-	logger.Debugf(ctx, "Request: %s %s: %#+v, %#+v", httpMethod, route, uriValues, request)
+	logger.Debugf(ctx, "Request: %s %s: %#+v, %#+v", httpMethod, route, uriValues, req)
 	defer func() {
 		logger.Debugf(ctx, "Reply: %#+v %v", _ret, _err)
 	}()
+	return xsync.DoR2(ctx, &k.Mutex, func() (*REPLY, error) {
+		return request[REPLY](ctx, k, httpMethod, route, routeVars, uriValues, req)
+	})
+}
 
+func request[REPLY any, REQUEST any](
+	ctx context.Context,
+	k *Kick,
+	httpMethod string,
+	route Route,
+	routeVars RouteVars,
+	uriValues url.Values,
+	request REQUEST,
+) (_ret *REPLY, _err error) {
 	dstURL := GetURL(route, routeVars)
 	dstURL.RawQuery = uriValues.Encode()
 
