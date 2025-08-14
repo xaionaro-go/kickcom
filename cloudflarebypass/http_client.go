@@ -51,15 +51,21 @@ func (r *RoundTripper) RoundTrip(
 	}
 
 	var resp cycletls.Response
-	for i := 0; i < 10; i++ {
-		switch req.Method {
-		case http.MethodGet:
-			resp, err = r.CloudScrapper.Get(req.URL.String(), headerMap, string(body))
-		case http.MethodPost:
-			resp, err = r.CloudScrapper.Post(req.URL.String(), headerMap, string(body))
+	for range 10 {
+		select {
+		case <-req.Context().Done():
+			return nil, req.Context().Err()
 		default:
-			resp, err = r.CloudScrapper.Do(req.URL.String(), cycletls.Options{}, req.Method)
 		}
+		options := cycletls.Options{
+			Timeout: 10,
+		}
+		switch req.Method {
+		case http.MethodGet, http.MethodPost:
+			options.Headers = headerMap
+			options.Body = string(body)
+		}
+		resp, err = r.CloudScrapper.Do(req.URL.String(), options, req.Method)
 		if err != nil {
 			return nil, fmt.Errorf("unable to query: %w", err)
 		}

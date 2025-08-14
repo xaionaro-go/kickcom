@@ -79,24 +79,21 @@ func request[REPLY any, REQUEST any](
 	dstURL := GetURL(route, routeVars)
 	dstURL.RawQuery = uriValues.Encode()
 
-	req := &http.Request{
-		URL:    dstURL,
-		Method: httpMethod,
-		Header: map[string][]string{
-			"Content-Type": {"application/json"},
-		},
-	}
-
-	var b []byte
+	var reqBody io.Reader
 	if _, ok := any(request).(noBodyT); !ok {
-		var err error
-		b, err = json.Marshal(request)
+		b, err := json.Marshal(request)
 		if err != nil {
 			return nil, fmt.Errorf("unable to JSON-ize the request %#+v: %w", request, err)
 		}
 
-		req.Body = io.NopCloser(bytes.NewReader(b))
+		reqBody = io.NopCloser(bytes.NewReader(b))
 	}
+
+	req, err := http.NewRequestWithContext(ctx, httpMethod, dstURL.String(), reqBody)
+	if err != nil {
+		return nil, fmt.Errorf("unable to create a request for %s: %w", dstURL.String(), err)
+	}
+	req.Header.Set("User-Agent", "application/json")
 
 	logger.Tracef(ctx, "resulting request: %s", spew.Sdump(req))
 	resp, err := k.Client.Do(req)
@@ -105,20 +102,20 @@ func request[REPLY any, REQUEST any](
 	}
 	defer resp.Body.Close()
 
-	body, err := io.ReadAll(resp.Body)
+	respBody, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, fmt.Errorf("unable to read the response body: %w", err)
 	}
-	logger.Tracef(ctx, "response body: <%s>", body)
+	logger.Tracef(ctx, "response body: <%s>", respBody)
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("the received status code is not 200: %d; body: '%s'", resp.StatusCode, body)
+		return nil, fmt.Errorf("the received status code is not 200: %d; body: '%s'", resp.StatusCode, respBody)
 	}
 
 	var result REPLY
-	err = json.Unmarshal(body, &result)
+	err = json.Unmarshal(respBody, &result)
 	if err != nil {
-		return nil, fmt.Errorf("unable to un-JSON-ize the response: %w: '%s'", err, body)
+		return nil, fmt.Errorf("unable to un-JSON-ize the response: %w: '%s'", err, respBody)
 	}
 
 	return &result, nil
