@@ -6,6 +6,8 @@ toolchain go1.24.2
 
 replace github.com/Danny-Dasilva/CycleTLS => github.com/xaionaro-go/CycleTLS v0.0.0-20250923213111-aed0022ae7b5
 
+replace github.com/RomainMichau/cloudscraper_go => github.com/xaionaro-go/cloudscraper v0.0.0-20251019213127-d3687042cb55
+
 require (
 	github.com/Danny-Dasilva/CycleTLS v0.0.0-20250923213111-aed0022ae7b5
 	github.com/RomainMichau/cloudscraper_go v0.4.1
@@ -17,7 +19,7 @@ require (
 
 require (
 	github.com/Danny-Dasilva/fhttp v0.0.0-20240217042913-eeeb0b347ce1 // indirect
-	github.com/andybalholm/brotli v1.1.0 // indirect
+	github.com/andybalholm/brotli v1.2.0 // indirect
 	github.com/gaukas/clienthellod v0.4.2 // indirect
 	github.com/gaukas/godicttls v0.0.4 // indirect
 	github.com/go-ng/slices v0.0.0-20230703171042-6195d35636a2 // indirect
@@ -28,9 +30,9 @@ require (
 	github.com/google/gopacket v1.1.19 // indirect
 	github.com/google/pprof v0.0.0-20240430035430-e4905b036c4e // indirect
 	github.com/google/uuid v1.6.0 // indirect
-	github.com/gorilla/websocket v1.5.1 // indirect
+	github.com/gorilla/websocket v1.5.3 // indirect
 	github.com/huandu/go-tls v0.0.0-20200109070953-6f75fb441850 // indirect
-	github.com/klauspost/compress v1.17.8 // indirect
+	github.com/klauspost/compress v1.18.0 // indirect
 	github.com/onsi/ginkgo/v2 v2.17.2 // indirect
 	github.com/phuslu/goid v1.0.1 // indirect
 	github.com/quic-go/qpack v0.5.1 // indirect

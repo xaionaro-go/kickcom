@@ -65,7 +65,7 @@ func (r *RoundTripper) RoundTrip(
 			options.Headers = headerMap
 			options.Body = string(body)
 		}
-		resp, err = r.CloudScrapper.Do(req.URL.String(), options, req.Method)
+		resp, err = r.CloudScrapper.Do(req.Context(), req.URL.String(), options, req.Method)
 		if err != nil {
 			return nil, fmt.Errorf("unable to query: %w", err)
 		}
