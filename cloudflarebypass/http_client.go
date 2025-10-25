@@ -58,7 +58,8 @@ func (r *RoundTripper) RoundTrip(
 		default:
 		}
 		options := cycletls.Options{
-			Timeout: 10,
+			Timeout:               10,
+			EnableConnectionReuse: true,
 		}
 		switch req.Method {
 		case http.MethodGet, http.MethodPost:
